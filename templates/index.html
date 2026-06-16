@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Прогнозирование радиационных воздействий{% endblock %}
+
+{% block meta %}
+<meta name="description" content="Платформа оценки отдалённых радиационных рисков для потомков облучённых лиц. Когортное исследование на основе данных ГНАМР, 2-е и 3-е поколения. Проект BR28512329.">
+<meta property="og:title" content="ИАПС — Прогнозирование радиационных рисков">
+<meta property="og:description" content="Платформа ML-оценки трансгенерационных радиационных рисков. Когорта 7 898 потомков, XGBoost / RF / LR.">
+<meta property="og:type" content="website">
+{% endblock %}
+
+{% block content %}
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-[#0A1525] via-[#122040] to-[#1A3060]">
+    <div class="max-w-5xl mx-auto px-6 py-10 md:py-14">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+
+        <!-- Left: text -->
+        <div>
+          <h1 class="font-serif text-3xl md:text-[2rem] leading-snug font-semibold text-white mb-5">
+            Платформа оценки отдалённых радиационных рисков для второго и третьего поколений на основе когортных данных ГНАМР.
+          </h1>
+
+          <!-- Inline stats -->
+          <div class="flex gap-5 mb-6 pb-6 border-b border-white/10">
+            <div>
+              <p class="text-xl font-mono font-bold text-gold">370 000+</p>
+              <p class="text-[11px] text-white/35 mt-0.5">Записей ГНАМР</p>
+            </div>
+            <div class="border-l border-white/10 pl-5">
+              <p class="text-xl font-mono font-bold text-white">7 898</p>
+              <p class="text-[11px] text-white/35 mt-0.5">2-е поколение · n</p>
+            </div>
+            <div class="border-l border-white/10 pl-5">
+              <p class="text-xl font-mono font-bold text-white">2 841</p>
+              <p class="text-[11px] text-white/35 mt-0.5">3-е поколение · n</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <a href="#" class="inline-flex items-center gap-2.5 px-4 py-2.5 bg-accent/75 text-white text-sm rounded">
+              Перейти к прогнозу
+            </a>
+            <a href="/results" class="inline-flex items-center gap-2 px-4 py-2.5 border border-white/20 text-white/75 text-sm rounded hover:bg-white/8 hover:text-white transition-colors">
+              Результаты моделей →
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: illustration card -->
+        <div class="hidden lg:flex justify-center">
+          <div class="bg-white rounded-2xl overflow-hidden shadow-2xl shadow-black/50 w-full max-w-sm">
+            <img
+              src="https://stories.freepiklabs.com/storage/6446/328-Doctors-(1)_Artboard-1.svg"
+              alt="Врач с медицинскими инструментами"
+              class="w-full block"
+              loading="eager"
+            />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual strip: 3 illustrations -->
+  <section class="border-b border-divider bg-white">
+    <div class="max-w-5xl mx-auto px-6 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+        <!-- Block 1: ГНАМР data — links to published cohort paper -->
+        <a href="https://link.springer.com/article/10.1007/s00411-018-0762-5"
+           target="_blank" rel="noopener"
+           class="flex md:flex-col items-center md:items-center text-left md:text-center gap-4 md:gap-3 group border border-divider md:border-transparent rounded-xl p-3 md:p-0 hover:bg-surface md:hover:bg-transparent transition-colors md:transition-none">
+          <div class="hidden md:block rounded-xl overflow-hidden bg-surface border border-divider w-full transition-shadow group-hover:shadow-md group-hover:border-accent/30">
+            <img
+              src="https://stories.freepiklabs.com/storage/2321/238-Science_Artboard-1.svg"
+              alt="Научная лаборатория"
+              class="w-full block"
+              loading="lazy"
+            />
+          </div>
+          <div class="flex-1 md:flex-none">
+            <p class="text-sm font-medium text-ink group-hover:text-accent transition-colors">Данные ГНАМР</p>
+            <p class="text-sm text-muted mt-0.5 md:mt-1 leading-snug">370 000+ записей государственного регистра</p>
+          </div>
+        </a>
+
+        <!-- Block 2: Cohort study -->
+        <div class="flex md:flex-col items-center md:items-center text-left md:text-center gap-4 md:gap-3 group cursor-default border border-divider md:border-transparent rounded-xl p-3 md:p-0 hover:bg-surface md:hover:bg-transparent transition-colors md:transition-none">
+          <div class="hidden md:block rounded-xl overflow-hidden bg-surface border border-divider w-full transition-shadow group-hover:shadow-md group-hover:border-accent/30">
+            <img
+              src="https://stories.freepiklabs.com/storage/40606/DNA-(1)_Artboard-1-copy.svg"
+              alt="ДНК и когортное исследование поколений"
+              class="w-full block"
+              loading="lazy"
+            />
+          </div>
+          <div class="flex-1 md:flex-none">
+            <p class="text-sm font-medium text-ink group-hover:text-accent transition-colors">Когортное исследование</p>
+            <p class="text-sm text-muted mt-0.5 md:mt-1 leading-snug">2-е и 3-е поколения потомков облучённых лиц</p>
+          </div>
+        </div>
+
+        <!-- Block 3: ML prediction -->
+        <div class="flex md:flex-col items-center md:items-center text-left md:text-center gap-4 md:gap-3 group cursor-default border border-divider md:border-transparent rounded-xl p-3 md:p-0 hover:bg-surface md:hover:bg-transparent transition-colors md:transition-none">
+          <div class="hidden md:block rounded-xl overflow-hidden bg-surface border border-divider w-full transition-shadow group-hover:shadow-md group-hover:border-accent/30">
+            <img
+              src="https://stories.freepiklabs.com/storage/54834/Data-Analysis_Artboard-1.svg"
+              alt="Анализ данных и ML-прогнозирование"
+              class="w-full block"
+              loading="lazy"
+            />
+          </div>
+          <div class="flex-1 md:flex-none">
+            <p class="text-sm font-medium text-ink group-hover:text-accent transition-colors">ML-прогнозирование</p>
+            <p class="text-sm text-muted mt-0.5 md:mt-1 leading-snug">XGBoost, RF, LR — оценка радиационных рисков</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <main class="max-w-5xl mx-auto px-6">
+    <section class="py-8 border-b border-divider">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Грант</p>
+          <p class="text-base text-muted leading-relaxed">
+            BR28512329 Интегральная оценка влияния ионизирующего излучения на здоровье потомков лиц, подвергшихся радиационному воздействию
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-muted mb-4">Исполнители</p>
+          <div class="flex gap-5">
+            <div class="flex flex-col items-center gap-2">
+              <a href="https://smu.edu.kz/en/" target="_blank" class="group">
+                <div class="w-16 h-16 bg-surface border border-divider rounded-lg flex items-center justify-center transition-all group-hover:border-accent/40 group-hover:shadow-md">
+                  <img src="/static/img/smu.png" alt="Semey Medical University" class="w-10 h-10 object-contain">
+                </div>
+              </a>
+              <p class="text-xs text-muted text-center leading-tight max-w-[80px]">Semey Medical University</p>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <a href="https://shakarim.university/" target="_blank" class="group">
+                <div class="w-16 h-16 bg-surface border border-divider rounded-lg flex items-center justify-center transition-all group-hover:border-accent/40 group-hover:shadow-md">
+                  <img src="/static/img/shakarim.jpeg" alt="Shakarim University" class="w-10 h-10 object-contain">
+                </div>
+              </a>
+              <p class="text-xs text-muted text-center leading-tight max-w-[80px]">Shakarim University</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+{% endblock %}
