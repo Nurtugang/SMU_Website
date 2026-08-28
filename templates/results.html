@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Результаты моделей — ИАПС{% endblock %}
+{% block title %}{{ t.results.title }}{% endblock %}
 
 {% block meta %}
-<meta name="description" content="Результаты ML-моделей (XGBoost, Random Forest, Logistic Regression) для оценки радиационных рисков у потомков. Проект BR28512329, Semey Medical University.">
-<meta property="og:title" content="Результаты моделей — ИАПС BR28512329">
-<meta property="og:description" content="AUC-ROC, SHAP-анализ и ablation study для когорты 7 898 потомков облучённых лиц.">
+<meta name="description" content="{{ t.results.meta_description }}">
+<meta property="og:title" content="{{ t.results.og_title }}">
+<meta property="og:description" content="{{ t.results.og_description }}">
 <meta property="og:type" content="website">
 {% endblock %}
 
@@ -21,25 +21,25 @@
   <!-- Page header -->
   <div class="bg-gradient-to-r from-[#0A1525] to-[#162B48] border-b border-white/8">
     <div class="max-w-5xl mx-auto px-6 py-8">
-      <h1 class="font-serif text-2xl md:text-3xl font-semibold text-white">Результаты моделей машинного обучения</h1>
-      <p class="text-sm text-blue-100/40 mt-2">Последовательное описание методологии и ключевых находок</p>
+      <h1 class="font-serif text-2xl md:text-3xl font-semibold text-white">{{ t.results.heading }}</h1>
+      <p class="text-sm text-blue-100/40 mt-2">{{ t.results.subheading }}</p>
 
       <a href="https://doi.org/10.3390/app16168105" target="_blank" rel="noopener"
          class="inline-flex items-center gap-1.5 mt-4 text-xs text-gold hover:text-white transition-colors border-b border-gold/30 hover:border-gold pb-0.5">
-        Опубликовано: Applied Sciences (MDPI) · DOI: 10.3390/app16168105 →
+        {{ t.results.published_link }}
       </a>
     </div>
   </div>
 
   <main class="max-w-5xl mx-auto px-4 sm:px-6">
 
-    <!-- ── 1. Данные ── -->
+    <!-- ── 1. Data ── -->
     <section class="py-10 border-b border-divider hover:bg-surface transition-colors duration-200 -mx-4 sm:-mx-6 px-4 sm:px-6">
 
-      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">1. Данные</h2>
+      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">{{ t.results.s1_heading }}</h2>
 
       <p class="text-base text-muted leading-relaxed mb-7">
-        Первичный источник — реестр ГНАМР, реляционная база данных из 37 таблиц, охватывающих демографические записи, историю облучения, медицинские исходы и семейные связи. После систематической фильтрации — наличие хотя бы одного зарегистрированного исхода и данных о дозе хотя бы одного из родителей — сформирована основная когорта второго поколения. Средняя пропущенность данных снизилась с 60.2% в сыром реестре до 14.2% в аналитической когорте.
+        {{ t.results.s1_p1 }}
       </p>
 
       <!-- Cohort chips -->
@@ -49,15 +49,15 @@
         </div>
         <div class="bg-surface border border-divider rounded-lg px-5 py-3">
           <p class="font-mono text-xl font-bold text-ink">14.18%</p>
-          <p class="text-xs text-muted mt-0.5">средняя пропущенность</p>
+          <p class="text-xs text-muted mt-0.5">{{ t.results.chip_missing }}</p>
         </div>
         <div class="bg-surface border border-divider rounded-lg px-5 py-3">
           <p class="font-mono text-xl font-bold text-ink">1966</p>
-          <p class="text-xs text-muted mt-0.5">медиана года рождения</p>
+          <p class="text-xs text-muted mt-0.5">{{ t.results.chip_birth_median }}</p>
         </div>
         <div class="bg-surface border border-divider rounded-lg px-5 py-3">
           <p class="font-mono text-xl font-bold text-ink">51.8%</p>
-          <p class="text-xs text-muted mt-0.5">мужской пол</p>
+          <p class="text-xs text-muted mt-0.5">{{ t.results.chip_male }}</p>
         </div>
       </div>
 
@@ -65,52 +65,52 @@
 
         <!-- Predictors -->
         <div>
-          <p class="text-sm font-semibold text-ink mb-4">8 предикторов</p>
+          <p class="text-sm font-semibold text-ink mb-4">{{ t.results.predictors_heading }}</p>
 
-          <p class="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Дозовые (6)</p>
+          <p class="text-xs font-semibold uppercase tracking-wider text-muted mb-2">{{ t.results.dose_predictors_label }}</p>
           <div class="space-y-2 mb-5">
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code class="font-mono text-sm text-accent">father_aggregated_dose</code>
-              <span class="text-sm text-muted">агр. доза отца, мГр</span>
+              <span class="text-sm text-muted">{{ t.results.pred_father_dose }}</span>
             </div>
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code class="font-mono text-sm text-accent">mother_aggregated_dose</code>
-              <span class="text-sm text-muted">агр. доза матери, мГр</span>
+              <span class="text-sm text-muted">{{ t.results.pred_mother_dose }}</span>
             </div>
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code class="font-mono text-sm text-accent">max_parent_dose</code>
-              <span class="text-sm text-muted">максимальная доза родителей</span>
+              <span class="text-sm text-muted">{{ t.results.pred_max_dose }}</span>
             </div>
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code class="font-mono text-sm text-accent">mean_parent_dose</code>
-              <span class="text-sm text-muted">средняя доза родителей</span>
+              <span class="text-sm text-muted">{{ t.results.pred_mean_dose }}</span>
             </div>
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code class="font-mono text-sm text-muted">father_dose_available</code>
-              <span class="text-sm text-muted">индикатор наличия дозы отца</span>
+              <span class="text-sm text-muted">{{ t.results.pred_father_available }}</span>
             </div>
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code class="font-mono text-sm text-muted">mother_dose_available</code>
-              <span class="text-sm text-muted">индикатор наличия дозы матери</span>
+              <span class="text-sm text-muted">{{ t.results.pred_mother_available }}</span>
             </div>
           </div>
 
-          <p class="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Демографические (2)</p>
+          <p class="text-xs font-semibold uppercase tracking-wider text-muted mb-2">{{ t.results.demo_predictors_label }}</p>
           <div class="space-y-2">
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code class="font-mono text-sm text-accent">birth_year</code>
-              <span class="text-sm text-muted">год рождения (прокси возраста)</span>
+              <span class="text-sm text-muted">{{ t.results.pred_birth_year }}</span>
             </div>
             <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code class="font-mono text-sm text-muted">sex_binary</code>
-              <span class="text-sm text-muted">пол (1 = м, 0 = ж)</span>
+              <span class="text-sm text-muted">{{ t.results.pred_sex }}</span>
             </div>
           </div>
         </div>
 
         <!-- Targets -->
         <div>
-          <p class="text-sm font-semibold text-ink mb-4">3 целевых переменных</p>
+          <p class="text-sm font-semibold text-ink mb-4">{{ t.results.targets_heading }}</p>
           <div class="space-y-3">
 
             <div class="border border-divider rounded-lg p-4">
@@ -118,7 +118,7 @@
                 <p class="text-base font-medium text-ink">Chapter I</p>
                 <p class="font-mono text-base font-bold text-ink">16.5%</p>
               </div>
-              <p class="text-sm text-muted mb-3">Сердечно-сосудистые заболевания · n = 1 304</p>
+              <p class="text-sm text-muted mb-3">{{ t.results.target_chapter_I_desc }}</p>
               <div class="h-1.5 bg-divider rounded-full overflow-hidden">
                 <div class="h-full bg-accent rounded-full" style="width:16.5%"></div>
               </div>
@@ -129,7 +129,7 @@
                 <p class="text-base font-medium text-ink">Chapter C</p>
                 <p class="font-mono text-base font-bold text-ink">6.1%</p>
               </div>
-              <p class="text-sm text-muted mb-3">Новообразования · n = 482</p>
+              <p class="text-sm text-muted mb-3">{{ t.results.target_chapter_C_desc }}</p>
               <div class="h-1.5 bg-divider rounded-full overflow-hidden">
                 <div class="h-full bg-accent rounded-full" style="width:6.1%"></div>
               </div>
@@ -140,11 +140,11 @@
                 <p class="text-base font-medium text-ink">Composite C/I</p>
                 <p class="font-mono text-base font-bold text-gold">22.0%</p>
               </div>
-              <p class="text-sm text-muted mb-3">Совокупный конечный показатель · n = 1 739</p>
+              <p class="text-sm text-muted mb-3">{{ t.results.target_composite_desc }}</p>
               <div class="h-1.5 bg-divider rounded-full overflow-hidden">
                 <div class="h-full bg-gold/60 rounded-full" style="width:22%"></div>
               </div>
-              <p class="text-xs text-muted mt-2">Вторичный показатель; не интерпретируется как единая клиническая единица</p>
+              <p class="text-xs text-muted mt-2">{{ t.results.target_composite_note }}</p>
             </div>
 
           </div>
@@ -153,52 +153,52 @@
       </div>
     </section>
 
-    <!-- ── 2. Алгоритмы ── -->
+    <!-- ── 2. Algorithms ── -->
     <section class="py-10 border-b border-divider hover:bg-surface transition-colors duration-200 -mx-4 sm:-mx-6 px-4 sm:px-6">
 
-      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">2. Алгоритмы</h2>
+      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">{{ t.results.s2_heading }}</h2>
 
       <p class="text-base text-muted leading-relaxed mb-6">
-        Три семейства моделей обучены параллельно на каждой целевой переменной — от линейного базиса до ансамблевых методов. Все оценки производительности получены через стратифицированную 5-кратную перекрёстную проверку: предсказания на каждом фолде формировались моделью, не видевшей эти наблюдения при обучении.
+        {{ t.results.s2_p1 }}
       </p>
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
         <div class="border border-divider rounded-lg p-5">
           <p class="text-base font-semibold text-ink mb-3">Logistic Regression</p>
-          <p class="text-sm text-muted leading-relaxed">Линейный базис с L2-регуляризацией (ridge, C = 1.0). Устанавливает линейную разделяющую поверхность; интерпретируем и служит нижней границей для сравнения.</p>
+          <p class="text-sm text-muted leading-relaxed">{{ t.results.algo_lr_desc }}</p>
         </div>
 
         <div class="border border-divider rounded-lg p-5">
           <p class="text-base font-semibold text-ink mb-3">Random Forest</p>
-          <p class="text-sm text-muted leading-relaxed">Непараметрический ансамбль из 300 деревьев решений (макс. глубина 6). Улавливает нелинейные взаимодействия через усреднение по независимым бутстрэп-выборкам.</p>
+          <p class="text-sm text-muted leading-relaxed">{{ t.results.algo_rf_desc }}</p>
         </div>
 
         <div class="border border-divider rounded-lg p-5 ring-1 ring-accent/20 bg-accent/[0.025]">
           <p class="text-base font-semibold text-ink mb-3">XGBoost</p>
-          <p class="text-sm text-muted leading-relaxed">Градиентный бустинг деревьев (300 деревьев, lr = 0.05, глубина 4). Последовательно аппроксимирует остатки; основная нелинейная модель с наибольшим AUC.</p>
+          <p class="text-sm text-muted leading-relaxed">{{ t.results.algo_xgb_desc }}</p>
         </div>
 
       </div>
     </section>
 
-    <!-- ── 3. Результаты ── -->
+    <!-- ── 3. Results ── -->
     <section class="py-10 border-b border-divider hover:bg-surface transition-colors duration-200 -mx-4 sm:-mx-6 px-4 sm:px-6">
 
-      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">3. Результаты моделей</h2>
+      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">{{ t.results.s3_heading }}</h2>
 
       <p class="text-base text-muted leading-relaxed mb-6">
-        Основная метрика — AUC-ROC: оценивает ранжирующую способность независимо от порога классификации. Average Precision дополняет оценку при несбалансированных классах (особенно Chapter C, частота событий 6.1%). Brier Score измеряет калиброванность предсказанных вероятностей.
+        {{ t.results.s3_p1 }}
       </p>
 
-      <p class="text-sm font-semibold text-ink mb-3">AUC-ROC по целевой переменной и модели</p>
+      <p class="text-sm font-semibold text-ink mb-3">{{ t.results.auc_chart_caption }}</p>
       <div class="relative mb-5" style="height:210px">
         <canvas id="aucChart"></canvas>
       </div>
 
       <button id="tableToggleBtn" onclick="toggleMetricsTable()"
         class="text-sm font-mono border border-divider rounded px-4 py-2 text-muted hover:text-ink hover:border-ink/30 transition-colors">
-        Показать таблицу метрик ↓
+        {{ t.results.js.show_table }}
       </button>
 
       <div id="metricsTablePanel" class="hidden mt-5">
@@ -206,8 +206,8 @@
           <table class="w-full text-sm border-collapse">
             <thead>
               <tr class="bg-surface border-b border-divider">
-                <th class="text-left px-4 py-3 text-xs font-semibold text-muted tracking-wide">Таргет</th>
-                <th class="text-left px-4 py-3 text-xs font-semibold text-muted tracking-wide">Модель</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-muted tracking-wide">{{ t.results.table_target }}</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-muted tracking-wide">{{ t.results.table_model }}</th>
                 <th class="px-4 py-3 text-xs font-semibold text-muted tracking-wide text-right">AUC-ROC</th>
                 <th class="px-4 py-3 text-xs font-semibold text-muted tracking-wide text-right">Avg Prec</th>
                 <th class="px-4 py-3 text-xs font-semibold text-muted tracking-wide text-right">Brier</th>
@@ -223,12 +223,12 @@
     <!-- ── 4. SHAP ── -->
     <section class="py-10 border-b border-divider hover:bg-surface transition-colors duration-200 -mx-4 sm:-mx-6 px-4 sm:px-6">
 
-      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">4. Важность признаков</h2>
+      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">{{ t.results.s4_heading }}</h2>
 
       <div class="border border-divider rounded-lg p-5 mb-6">
-        <p class="text-sm font-semibold text-ink mb-2">О методе</p>
+        <p class="text-sm font-semibold text-ink mb-2">{{ t.results.shap_about_label }}</p>
         <p class="text-base text-muted leading-relaxed">
-          SHAP (SHapley Additive exPlanations) — метод объяснения предсказаний, основанный на теории кооперативных игр. Для каждого признака вычисляется <em>Mean |SHAP value|</em> — среднее абсолютное изменение предсказания модели, приписываемое этому признаку. Признак с большим значением сильнее смещает предсказание относительно базового уровня.
+          {{ t.results.shap_about_desc | safe }}
         </p>
       </div>
 
@@ -239,16 +239,16 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
 
         <div class="border-l-2 border-gold pl-5">
-          <p class="text-base font-semibold text-ink mb-2">Год рождения — доминирующий признак</p>
+          <p class="text-base font-semibold text-ink mb-2">{{ t.results.shap_card1_title }}</p>
           <p class="text-sm text-muted leading-relaxed">
-            <code class="font-mono text-sm">birth_year</code> занимает первое место с большим отрывом (Mean |SHAP| ≈ 2.0). Он одновременно кодирует три частично неразличимых сигнала: достигнутый биологический возраст, продолжительность наблюдения в реестре (более пожилые участники накопили больше диагнозов) и эпоху облучения родителей — лица, рождённые раньше, имеют родителей с потенциально более высокой дозой.
+            {{ t.results.shap_card1_desc | safe }}
           </p>
         </div>
 
         <div class="border-l-2 border-accent pl-5">
-          <p class="text-base font-semibold text-ink mb-2">Дозовые переменные — позиции 2–5</p>
+          <p class="text-base font-semibold text-ink mb-2">{{ t.results.shap_card2_title }}</p>
           <p class="text-sm text-muted leading-relaxed">
-            Родительские дозы (<code class="font-mono text-sm">mother_aggregated_dose</code>, <code class="font-mono text-sm">mean_parent_dose</code>, <code class="font-mono text-sm">father_aggregated_dose</code>, <code class="font-mono text-sm">max_parent_dose</code>) занимают ранги 2–5. Более высокие родительские дозы ассоциированы с умеренно повышенным предсказанным риском. Сигнал устойчив, но существенно слабее демографического эффекта.
+            {{ t.results.shap_card2_desc | safe }}
           </p>
         </div>
 
@@ -258,10 +258,10 @@
     <!-- ── 5. Ablation ── -->
     <section class="py-10 hover:bg-surface transition-colors duration-200 -mx-4 sm:-mx-6 px-4 sm:px-6">
 
-      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">5. Ablation study</h2>
+      <h2 class="font-serif text-2xl md:text-3xl font-semibold text-ink mb-1">{{ t.results.s5_heading }}</h2>
 
       <p class="text-base text-muted leading-relaxed mb-6">
-        Ablation study — методология, при которой признаки поочерёдно исключаются из модели для количественной оценки их вклада в качество предсказания. Проведены два испытания: модель без <code class="font-mono text-sm">birth_year</code> — позволяет изолировать демографический конфаундер; и модель только с дозовыми признаками — нижняя оценка сигнала, приписываемого исключительно парентальному облучению.
+        {{ t.results.s5_p1 | safe }}
       </p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
@@ -273,33 +273,33 @@
                 <p class="text-base text-ink font-medium">Chapter I</p>
                 <p class="font-mono text-base font-bold text-red-600">−0.060 … −0.070</p>
               </div>
-              <p class="text-sm text-muted">ΔAUC = AUC_full − AUC_без_birth_year</p>
+              <p class="text-sm text-muted">{{ t.results.ablation_delta_caption }}</p>
             </div>
             <div class="border-t border-divider pt-4">
               <div class="flex justify-between items-baseline mb-1">
                 <p class="text-base text-ink font-medium">Chapter C</p>
                 <p class="font-mono text-base font-bold text-red-600">−0.067 … −0.113</p>
               </div>
-              <p class="text-sm text-muted">Более выраженный эффект при редком исходе</p>
+              <p class="text-sm text-muted">{{ t.results.ablation_chapter_C_note }}</p>
             </div>
           </div>
         </div>
 
         <div class="border border-divider rounded-lg p-5">
-          <p class="text-xs font-semibold uppercase tracking-wider text-muted mb-4">Только дозовые признаки · AUC</p>
+          <p class="text-xs font-semibold uppercase tracking-wider text-muted mb-4">{{ t.results.dose_only_label }}</p>
           <div class="flex items-baseline gap-2 mb-3">
             <p class="font-mono text-3xl font-bold text-ink">0.619</p>
             <p class="font-mono text-lg text-muted">–</p>
             <p class="font-mono text-3xl font-bold text-ink">0.761</p>
           </div>
-          <p class="text-sm text-muted leading-relaxed">Нижняя граница предиктивного сигнала, приписываемого исключительно парентальному облучению (father dose, mother dose, max dose, mean dose)</p>
+          <p class="text-sm text-muted leading-relaxed">{{ t.results.dose_only_desc }}</p>
         </div>
 
       </div>
 
       <div class="bg-surface border border-divider rounded-lg p-5">
         <p class="text-base text-muted leading-relaxed">
-          <strong class="text-ink font-semibold">Вывод.</strong> Дозовые признаки несут самостоятельный предиктивный сигнал (AUC &gt; 0.61 при полном исключении демографических переменных), однако год рождения вносит существенный конфаундирующий вклад. Биологический возраст, продолжительность наблюдения и эпоха родительского облучения неразличимы в рамках текущей структуры реестра. Причинно-следственная интерпретация дозового сигнала требует дополнительных шагов: стратификации по возрасту и метода множественного вменения (MICE) для записей с отсутствующими дозами.
+          <strong class="text-ink font-semibold">{{ t.results.conclusion_label }}</strong> {{ t.results.conclusion_text | safe }}
         </p>
       </div>
 
@@ -310,10 +310,11 @@
 {% endblock %}
 
 {% block footer_content %}
-<a href="/" class="text-sm text-muted hover:text-ink transition-colors">← Главная</a>
-<p class="text-sm text-muted">© 2026 Semey Medical University · <span class="font-mono">BR28512329</span></p>
+<a href="/" class="text-sm text-muted hover:text-ink transition-colors">{{ t.footer.home }}</a>
+<p class="text-sm text-muted">{{ t.footer.copyright }} · <span class="font-mono">BR28512329</span></p>
 {% endblock %}
 
 {% block scripts %}
+<script>window.I18N = {{ t.results.js | tojson }};</script>
 <script src="/static/js/results.js"></script>
 {% endblock %}

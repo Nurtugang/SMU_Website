@@ -1,21 +1,23 @@
+const I18N = window.I18N || {};
+
 const GEN_CONFIG = {
   2: {
     endpoint: "/api/predict2",
     birthYearDefault: 1966,
-    description: "Потомки лиц, подвергшихся радиационному воздействию (2-е поколение). Модели обучены на когорте 7 898 человек.",
+    description: I18N.gen2_description,
     targets: {
-      chapter_I: { label: "Глава I — Сердечно-сосудистые", bar: "bg-accent" },
-      chapter_C: { label: "Глава C — Новообразования", bar: "bg-accent" },
-      composite: { label: "Композитный (I или C)", bar: "bg-gold/60" },
+      chapter_I: { label: I18N.target_chapter_I, bar: "bg-accent" },
+      chapter_C: { label: I18N.target_chapter_C, bar: "bg-accent" },
+      composite: { label: I18N.target_composite, bar: "bg-gold/60" },
     },
   },
   3: {
     endpoint: "/api/predict3",
     birthYearDefault: 1995,
-    description: "Внуки лиц, подвергшихся радиационному воздействию (3-е поколение). Модели обучены на когорте 2 841 человек.",
+    description: I18N.gen3_description,
     targets: {
-      chapter_I: { label: "Глава I — Сердечно-сосудистые", bar: "bg-accent" },
-      composite: { label: "Композитный (I или C)", bar: "bg-gold/60" },
+      chapter_I: { label: I18N.target_chapter_I, bar: "bg-accent" },
+      composite: { label: I18N.target_composite, bar: "bg-gold/60" },
     },
   },
 };
@@ -89,7 +91,7 @@ document.getElementById("predictForm").addEventListener("submit", async (e) => {
   const errorEl = document.getElementById("formError");
   errorEl.classList.add("hidden");
   btn.disabled = true;
-  btn.textContent = "Расчёт...";
+  btn.textContent = I18N.calculating;
 
   const cfg = GEN_CONFIG[currentGen];
   const payload = {
@@ -110,11 +112,11 @@ document.getElementById("predictForm").addEventListener("submit", async (e) => {
     if (!res.ok) throw new Error("HTTP " + res.status);
     renderResults(await res.json(), cfg.targets);
   } catch (err) {
-    errorEl.textContent = "Ошибка: " + err.message;
+    errorEl.textContent = I18N.error_prefix + err.message;
     errorEl.classList.remove("hidden");
   } finally {
     btn.disabled = false;
-    btn.textContent = "Рассчитать прогноз";
+    btn.textContent = I18N.submit;
   }
 });
 

@@ -32,7 +32,7 @@ function toggleMetricsTable() {
   const panel = document.getElementById("metricsTablePanel");
   const btn = document.getElementById("tableToggleBtn");
   const isHidden = panel.classList.toggle("hidden");
-  btn.textContent = isHidden ? "Показать таблицу метрик ↓" : "Скрыть таблицу ↑";
+  btn.textContent = isHidden ? window.I18N.show_table : window.I18N.hide_table;
 }
 
 // ── AUC chart (horizontal grouped) ──
